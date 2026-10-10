@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "370148173145",
+    "project_id": "firestore-test-on-platform",
+    "storage_bucket": "firestore-test-on-platform.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:370148173145:android:86665133ace3a0d6989848",
+        "android_client_info": {
+          "package_name": "com.example.loyambo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAcVdMMLFjPB6f0ocg9VHy_544FFXop-oo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

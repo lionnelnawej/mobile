@@ -1,0 +1,7 @@
+flutter_native_splash:
+  color: "#FFFFFF"
+  image: assets/images/loyambo.png
+  android: true
+  fullscreen: false
+
+  #dart run flutter_native_splash:create

@@ -1,0 +1,1560 @@
+### LISTE DES ENDPOINTS API - LOYAMBO (Resto & Lounge)
+
+---
+
+### 1. AUTHENTIFICATION & APPAREILS
+- POST /login
+    -> Authentification. Retourne le profil utilisateur (Nom, Rôle, Permissions).
+{
+    "status": "success",
+    "user": {
+        "id": 33,
+        "name": "lionnel",
+        "email": "lionnelnawe@gmail.com",
+        "email_verified_at": null,
+        "actif": true,
+        "salaire": "0.00",
+        "role": "admin",
+        "status": "actif",
+        "ets_id": 8,
+        "emplacement_id": null,
+        "created_at": "2026-04-14T23:38:38.000000Z",
+        "updated_at": "2026-04-14T23:38:38.000000Z",
+        "etablissement": {
+            "id": 8,
+            "nom": "Spirtus",
+            "type": "complexe",
+            "adresse": "kisnasa",
+            "telephone": "0999112999",
+            "token": "Gsp8jTRvdTkDeLKlXwM2yabuEOnrwFoPLnwro6lN8mDiRVVDsPjO8CFqaYED",
+            "created_at": "2026-04-14T23:38:38.000000Z",
+            "updated_at": "2026-04-14T23:38:38.000000Z"
+        }
+    },
+    "etablissement": {
+        "id": 8,
+        "nom": "Spirtus",
+        "type": "complexe",
+        "adresse": "kisnasa",
+        "telephone": "0999112999",
+        "token": "Gsp8jTRvdTkDeLKlXwM2yabuEOnrwFoPLnwro6lN8mDiRVVDsPjO8CFqaYED",
+        "created_at": "2026-04-14T23:38:38.000000Z",
+        "updated_at": "2026-04-14T23:38:38.000000Z"
+    },
+    "token": "3|yoQLAfvWezwkelrGWC52DS77sgLjWycIOsXewkC96a037282"
+}
+
+
+
+- POST /devices/register
+    -> Enregistre le Token FCM (Firebase) pour les notifications temps réel.
+
+### 2. CONFIGURATION DU MENU (Affichage)
+- GET /categories
+
+http://127.0.0.1:8000/api/categories?ets_id=8
+    -> Liste des catégories (Cuisine, Bar, Chicha, etc.).
+{
+    "categories": [
+        {
+            "id": 16,
+            "libelle": "BOISSON SUCREE",
+            "code": "3D62FF",
+            "type_service": "boisson",
+            "couleur": "#00ff00",
+            "ets_id": 8,
+            "created_at": "2026-04-15T00:29:23.000000Z",
+            "updated_at": "2026-04-15T00:29:23.000000Z",
+            "produits": [
+                {
+                    "id": 32,
+                    "code_barre": "2250888564998",
+                    "reference": "PROD-539507",
+                    "categorie_id": 16,
+                    "libelle": "COCA",
+                    "prix_unitaire": "5000.00",
+                    "unite": null,
+                    "qte_init": 10,
+                    "seuil_reappro": 50,
+                    "quantified": 1,
+                    "tva": 0,
+                    "image": null,
+                    "ets_id": 8,
+                    "created_at": "2026-04-15T00:30:34.000000Z",
+                    "updated_at": "2026-04-15T00:30:34.000000Z",
+                    "stocks": [
+                        {
+                            "id": 30,
+                            "produit_id": 32,
+                            "numdoc": null,
+                            "type_mouvement": "entrée",
+                            "quantite": 10,
+                            "source": null,
+                            "destination": 22,
+                            "sale_day_id": null,
+                            "date_mouvement": "2026-04-14",
+                            "user_id": 33,
+                            "emplacement_id": 22,
+                            "ets_id": 8,
+                            "created_at": "15/04/2026 00:30",
+                            "updated_at": "15/04/2026 00:30"
+                        },
+                        {
+                            "id": 34,
+                            "produit_id": 32,
+                            "numdoc": 17,
+                            "type_mouvement": "vente",
+                            "quantite": 1,
+                            "source": null,
+                            "destination": null,
+                            "sale_day_id": 4,
+                            "date_mouvement": "2026-04-15",
+                            "user_id": 38,
+                            "emplacement_id": 22,
+                            "ets_id": 8,
+                            "created_at": "15/04/2026 20:08",
+                            "updated_at": "15/04/2026 20:08"
+                        },
+                        {
+                            "id": 35,
+                            "produit_id": 32,
+                            "numdoc": 18,
+                            "type_mouvement": "vente",
+                            "quantite": 3,
+                            "source": null,
+                            "destination": null,
+                            "sale_day_id": 4,
+                            "date_mouvement": "2026-04-15",
+                            "user_id": 33,
+                            "emplacement_id": 22,
+                            "ets_id": 8,
+                            "created_at": "15/04/2026 20:10",
+                            "updated_at": "15/04/2026 20:10"
+                        },
+                        {
+                            "id": 36,
+                            "produit_id": 32,
+                            "numdoc": null,
+                            "type_mouvement": "entrée",
+                            "quantite": 10,
+                            "source": null,
+                            "destination": 22,
+                            "sale_day_id": null,
+                            "date_mouvement": "2026-04-15",
+                            "user_id": 33,
+                            "emplacement_id": 22,
+                            "ets_id": 8,
+                            "created_at": "15/04/2026 20:12",
+                            "updated_at": "15/04/2026 20:12"
+                        },
+                        {
+                            "id": 44,
+                            "produit_id": 32,
+                            "numdoc": 20,
+                            "type_mouvement": "vente",
+                            "quantite": 2,
+                            "source": null,
+                            "destination": null,
+                            "sale_day_id": 4,
+                            "date_mouvement": "2026-04-15",
+                            "user_id": 33,
+                            "emplacement_id": 22,
+                            "ets_id": 8,
+                            "created_at": "15/04/2026 20:36",
+                            "updated_at": "15/04/2026 20:36"
+                        },
+
+
+- GET /products
+    -> Liste des articles avec prix et état du stock.
+
+    "produits": [
+        {
+            "id": 32,
+            "code_barre": "2250888564998",
+            "reference": "PROD-539507",
+            "categorie_id": 16,
+            "libelle": "COCA",
+            "prix_unitaire": "5000.00",
+            "unite": null,
+            "qte_init": 10,
+            "seuil_reappro": 50,
+            "quantified": 1,
+            "tva": 0,
+            "image": null,
+            "ets_id": 8,
+            "created_at": "2026-04-15T00:30:34.000000Z",
+            "updated_at": "2026-04-15T00:30:34.000000Z",
+            "stock_actuel": "8",
+            "categorie": {
+                "id": 16,
+                "libelle": "BOISSON SUCREE",
+                "code": "3D62FF",
+                "type_service": "boisson",
+                "couleur": "#00ff00",
+                "ets_id": 8,
+                "created_at": "2026-04-15T00:29:23.000000Z",
+                "updated_at": "2026-04-15T00:29:23.000000Z"
+            }
+        },
+        {
+            "id": 36,
+            "code_barre": "1747788439132",
+            "reference": "PROD-725437",
+            "categorie_id": 16,
+            "libelle": "FANTA",
+            "prix_unitaire": "8000.00",
+            "unite": "cannete",
+            "qte_init": 15,
+            "seuil_reappro": 10,
+            "quantified": 1,
+            "tva": 0,
+            "image": null,
+            "ets_id": 8,
+            "created_at": "2026-04-15T20:35:07.000000Z",
+            "updated_at": "2026-04-15T20:35:07.000000Z",
+            "stock_actuel": "13",
+            "categorie": {
+                "id": 16,
+                "libelle": "BOISSON SUCREE",
+                "code": "3D62FF",
+                "type_service": "boisson",
+                "couleur": "#00ff00",
+                "ets_id": 8,
+                "created_at": "2026-04-15T00:29:23.000000Z",
+                "updated_at": "2026-04-15T00:29:23.000000Z"
+            }
+        },
+        {
+            "id": 248,
+            "code_barre": "5110328764647",
+            "reference": "PROD-747391",
+            "categorie_id": 65,
+            "libelle": "FUFU",
+            "prix_unitaire": "2500.00",
+            "unite": null,
+            "qte_init": 50,
+            "seuil_reappro": 10,
+            "quantified": 1,
+            "tva": 0,
+            "image": null,
+            "ets_id": 8,
+            "created_at": "2026-04-20T12:05:09.000000Z",
+            "updated_at": "2026-04-20T12:05:09.000000Z",
+            "stock_actuel": "47",
+            "categorie": {
+                "id": 65,
+                "libelle": "FUFU",
+                "code": "802B7E",
+                "type_service": "cuisine",
+                "couleur": "#00ffff",
+                "ets_id": 8,
+                "created_at": "2026-04-20T12:04:40.000000Z",
+                "updated_at": "2026-04-20T12:04:40.000000Z"
+            }
+        }
+    ]
+}
+
+
+### 3. ZONES & TABLES (Affichage)
+- GET /areas
+    -> Liste des zones (Terrasse, VIP, Salle Principale).
+
+{
+    "status": "success",
+    "emplacements": [
+        {
+            "id": 22,
+            "libelle": "EMPA",
+            "type": "restaurant & lounge",
+            "ets_id": 8,
+            "created_at": "2026-04-15T00:24:03.000000Z",
+            "updated_at": "2026-04-15T00:24:03.000000Z",
+            "tables": [
+                {
+                    "id": 53,
+                    "numero": "01",
+                    "emplacement_id": 22,
+                    "statut": "libre",
+                    "ets_id": 8,
+                    "created_at": "2026-04-15T00:33:26.000000Z",
+                    "updated_at": "2026-04-29T15:17:22.000000Z"
+                },
+                {
+                    "id": 54,
+                    "numero": "02",
+                    "emplacement_id": 22,
+                    "statut": "occupée",
+                    "ets_id": 8,
+                    "created_at": "2026-04-15T00:33:33.000000Z",
+                    "updated_at": "2026-04-27T09:59:19.000000Z"
+                }
+            ],
+            "chambres": []
+        }
+    ]
+}
+
+
+
+- GET /tables
+    -> Liste des tables avec leur statut actuel (Libre, Occupée, Réservée).
+{
+    "status": "success",
+    "tables": [
+        {
+            "id": 54,
+            "numero": "02",
+            "emplacement_id": 22,
+            "statut": "occupée",
+            "ets_id": 8,
+            "created_at": "2026-04-15T00:33:33.000000Z",
+            "updated_at": "2026-04-27T09:59:19.000000Z",
+            "emplacement": {
+                "id": 22,
+                "libelle": "EMPA",
+                "type": "restaurant & lounge",
+                "ets_id": 8,
+                "created_at": "2026-04-15T00:24:03.000000Z",
+                "updated_at": "2026-04-15T00:24:03.000000Z"
+            },
+            "commandes": [
+                {
+                    "id": 45,
+                    "numero_facture": "FAC-1777283959",
+                    "date_facture": "2026-04-27T09:59:19.000000Z",
+                    "user_id": 37,
+                    "table_id": 54,
+                    "chambre_id": null,
+                    "reservation_id": null,
+                    "sale_day_id": 6,
+                    "total_ht": "10500.00",
+                    "remise": "0.00",
+                    "tva": "0.00",
+                    "total_ttc": "10500.00",
+                    "devise": "CDF",
+                    "statut": "en_attente",
+                    "statut_service": "servie",
+                    "ets_id": 8,
+                    "emplacement_id": 22,
+                    "client_id": null,
+                    "created_at": "2026-04-27T09:59:19.000000Z",
+                    "updated_at": "2026-04-29T15:16:52.000000Z",
+                    "details": [
+                        {
+                            "id": 81,
+                            "facture_id": 45,
+                            "produit_id": 36,
+                            "quantite": 1,
+                            "prix_unitaire": "8000.00",
+                            "total_ligne": "8000.00",
+                            "created_at": "2026-04-27T09:59:19.000000Z",
+                            "updated_at": "2026-04-27T09:59:19.000000Z",
+                            "produit": {
+                                "id": 36,
+                                "code_barre": "1747788439132",
+                                "reference": "PROD-725437",
+                                "categorie_id": 16,
+                                "libelle": "FANTA",
+                                "prix_unitaire": "8000.00",
+                                "unite": "cannete",
+                                "qte_init": 15,
+                                "seuil_reappro": 10,
+                                "quantified": 1,
+                                "tva": 0,
+                                "image": null,
+                                "ets_id": 8,
+                                "created_at": "2026-04-15T20:35:07.000000Z",
+                                "updated_at": "2026-04-15T20:35:07.000000Z"
+                            }
+                        },
+                        {
+                            "id": 82,
+                            "facture_id": 45,
+                            "produit_id": 248,
+                            "quantite": 1,
+                            "prix_unitaire": "2500.00",
+                            "total_ligne": "2500.00",
+                            "created_at": "2026-04-27T09:59:19.000000Z",
+                            "updated_at": "2026-04-27T09:59:19.000000Z",
+                            "produit": {
+                                "id": 248,
+                                "code_barre": "5110328764647",
+                                "reference": "PROD-747391",
+                                "categorie_id": 65,
+                                "libelle": "FUFU",
+                                "prix_unitaire": "2500.00",
+                                "unite": null,
+                                "qte_init": 50,
+                                "seuil_reappro": 10,
+                                "quantified": 1,
+                                "tva": 0,
+                                "image": null,
+                                "ets_id": 8,
+                                "created_at": "2026-04-20T12:05:09.000000Z",
+                                "updated_at": "2026-04-20T12:05:09.000000Z"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 53,
+            "numero": "01",
+            "emplacement_id": 22,
+            "statut": "libre",
+            "ets_id": 8,
+            "created_at": "2026-04-15T00:33:26.000000Z",
+            "updated_at": "2026-04-29T15:17:22.000000Z",
+            "emplacement": {
+                "id": 22,
+                "libelle": "EMPA",
+                "type": "restaurant & lounge",
+                "ets_id": 8,
+                "created_at": "2026-04-15T00:24:03.000000Z",
+                "updated_at": "2026-04-15T00:24:03.000000Z"
+            },
+            "commandes": []
+        }
+    ],
+    "chambres": []
+}
+
+### 4. GESTION DES COMMANDES (POST / AFFICHAGE)
+- GET /orders/active
+    -> Liste des commandes en cours pour le serveur ou le manager.
+
+http://127.0.0.1:8000/api/orders/active?user_id=37
+
+{
+    "status": "success",
+    "commandes": [
+        {
+            "id": 49,
+            "numero_facture": "FAC-1777553831",
+            "date_facture": "2026-04-30T12:57:11.000000Z",
+            "user_id": 37,
+            "table_id": 54,
+            "chambre_id": null,
+            "reservation_id": null,
+            "sale_day_id": 5,
+            "total_ht": "13000.00",
+            "remise": "0.00",
+            "tva": "0.00",
+            "total_ttc": "13000.00",
+            "devise": "CDF",
+            "statut": "en_attente",
+            "statut_service": "en_attente",
+            "ets_id": 8,
+            "emplacement_id": 22,
+            "client_id": null,
+            "created_at": "2026-04-30T12:57:11.000000Z",
+            "updated_at": "2026-04-30T12:57:11.000000Z",
+            "user": {
+                "id": 37,
+                "name": "SERV M",
+                "email": "servmomo@gmail.com",
+                "email_verified_at": null,
+                "actif": false,
+                "salaire": "0.00",
+                "role": "serveur",
+                "status": "actif",
+                "ets_id": 8,
+                "emplacement_id": 22,
+                "created_at": "2026-04-14T17:24:57.000000Z",
+                "updated_at": "2026-04-22T08:16:52.000000Z"
+            },
+            "table": {
+                "id": 54,
+                "numero": "02",
+                "emplacement_id": 22,
+                "statut": "occup\u00e9e",
+                "ets_id": 8,
+                "created_at": "2026-04-14T17:33:33.000000Z",
+                "updated_at": "2026-04-30T12:57:11.000000Z"
+            },
+            "chambre": null,
+            "details": [
+                {
+                    "id": 89,
+                    "facture_id": 49,
+                    "produit_id": 36,
+                    "quantite": 1,
+                    "prix_unitaire": "8000.00",
+                    "total_ligne": "8000.00",
+                    "created_at": "2026-04-30T12:57:11.000000Z",
+                    "updated_at": "2026-04-30T12:57:11.000000Z"
+                },
+                {
+                    "id": 90,
+                    "facture_id": 49,
+                    "produit_id": 32,
+                    "quantite": 1,
+                    "prix_unitaire": "5000.00",
+                    "total_ligne": "5000.00",
+                    "created_at": "2026-04-30T12:57:11.000000Z",
+                    "updated_at": "2026-04-30T12:57:11.000000Z"
+                }
+            ]
+        },
+        {
+            "id": 48,
+            "numero_facture": "FAC-1777552445",
+            "date_facture": "2026-04-30T12:34:05.000000Z",
+            "user_id": 37,
+            "table_id": 53,
+            "chambre_id": null,
+            "reservation_id": null,
+            "sale_day_id": 5,
+            "total_ht": "12500.00",
+            "remise": "0.00",
+            "tva": "0.00",
+            "total_ttc": "12500.00",
+            "devise": "CDF",
+            "statut": "en_attente",
+            "statut_service": "en_attente",
+            "ets_id": 8,
+            "emplacement_id": 22,
+            "client_id": null,
+            "created_at": "2026-04-30T12:34:05.000000Z",
+            "updated_at": "2026-04-30T12:34:05.000000Z",
+            "user": {
+                "id": 37,
+                "name": "SERV M",
+                "email": "servmomo@gmail.com",
+                "email_verified_at": null,
+                "actif": false,
+                "salaire": "0.00",
+                "role": "serveur",
+                "status": "actif",
+                "ets_id": 8,
+                "emplacement_id": 22,
+                "created_at": "2026-04-14T17:24:57.000000Z",
+                "updated_at": "2026-04-22T08:16:52.000000Z"
+            },
+            "table": {
+                "id": 53,
+                "numero": "01",
+                "emplacement_id": 22,
+                "statut": "occup\u00e9e",
+                "ets_id": 8,
+                "created_at": "2026-04-14T17:33:26.000000Z",
+                "updated_at": "2026-04-30T12:34:05.000000Z"
+            },
+            "chambre": null,
+            "details": [
+                {
+                    "id": 87,
+                    "facture_id": 48,
+                    "produit_id": 32,
+                    "quantite": 2,
+                    "prix_unitaire": "5000.00",
+                    "total_ligne": "10000.00",
+                    "created_at": "2026-04-30T12:34:05.000000Z",
+                    "updated_at": "2026-04-30T12:34:05.000000Z"
+                },
+                {
+                    "id": 88,
+                    "facture_id": 48,
+                    "produit_id": 248,
+                    "quantite": 1,
+                    "prix_unitaire": "2500.00",
+                    "total_ligne": "2500.00",
+                    "created_at": "2026-04-30T12:34:05.000000Z",
+                    "updated_at": "2026-04-30T12:34:05.000000Z"
+                }
+            ]
+        },
+        {
+            "id": 47,
+            "numero_facture": "FAC-1777551650",
+            "date_facture": "2026-04-30T12:20:50.000000Z",
+            "user_id": 37,
+            "table_id": 53,
+            "chambre_id": null,
+            "reservation_id": null,
+            "sale_day_id": 5,
+            "total_ht": "18000.00",
+            "remise": "0.00",
+            "tva": "0.00",
+            "total_ttc": "18000.00",
+            "devise": "CDF",
+            "statut": "en_attente",
+            "statut_service": "en_attente",
+            "ets_id": 8,
+            "emplacement_id": 22,
+            "client_id": null,
+            "created_at": "2026-04-30T12:20:50.000000Z",
+            "updated_at": "2026-04-30T12:20:50.000000Z",
+            "user": {
+                "id": 37,
+                "name": "SERV M",
+                "email": "servmomo@gmail.com",
+                "email_verified_at": null,
+                "actif": false,
+                "salaire": "0.00",
+                "role": "serveur",
+                "status": "actif",
+                "ets_id": 8,
+                "emplacement_id": 22,
+                "created_at": "2026-04-14T17:24:57.000000Z",
+                "updated_at": "2026-04-22T08:16:52.000000Z"
+            },
+            "table": {
+                "id": 53,
+                "numero": "01",
+                "emplacement_id": 22,
+                "statut": "occup\u00e9e",
+                "ets_id": 8,
+                "created_at": "2026-04-14T17:33:26.000000Z",
+                "updated_at": "2026-04-30T12:34:05.000000Z"
+            },
+            "chambre": null,
+            "details": [
+                {
+                    "id": 84,
+                    "facture_id": 47,
+                    "produit_id": 32,
+                    "quantite": 1,
+                    "prix_unitaire": "5000.00",
+                    "total_ligne": "5000.00",
+                    "created_at": "2026-04-30T12:20:50.000000Z",
+                    "updated_at": "2026-04-30T12:20:50.000000Z"
+                },
+                {
+                    "id": 85,
+                    "facture_id": 47,
+                    "produit_id": 36,
+                    "quantite": 1,
+                    "prix_unitaire": "8000.00",
+                    "total_ligne": "8000.00",
+                    "created_at": "2026-04-30T12:20:50.000000Z",
+                    "updated_at": "2026-04-30T12:20:50.000000Z"
+                },
+                {
+                    "id": 86,
+                    "facture_id": 47,
+                    "produit_id": 248,
+                    "quantite": 2,
+                    "prix_unitaire": "2500.00",
+                    "total_ligne": "5000.00",
+                    "created_at": "2026-04-30T12:20:50.000000Z",
+                    "updated_at": "2026-04-30T12:20:50.000000Z"
+                }
+            ]
+        },
+        {
+            "id": 46,
+            "numero_facture": "FAC-1777231115",
+            "date_facture": "2026-04-26T19:18:35.000000Z",
+            "user_id": 37,
+            "table_id": 53,
+            "chambre_id": null,
+            "reservation_id": null,
+            "sale_day_id": 5,
+            "total_ht": "7500.00",
+            "remise": "0.00",
+            "tva": "0.00",
+            "total_ttc": "7500.00",
+            "devise": "CDF",
+            "statut": "en_attente",
+            "statut_service": "en_attente",
+            "ets_id": 8,
+            "emplacement_id": 22,
+            "client_id": null,
+            "created_at": "2026-04-26T19:18:35.000000Z",
+            "updated_at": "2026-04-26T19:18:35.000000Z",
+            "user": {
+                "id": 37,
+                "name": "SERV M",
+                "email": "servmomo@gmail.com",
+                "email_verified_at": null,
+                "actif": false,
+                "salaire": "0.00",
+                "role": "serveur",
+                "status": "actif",
+                "ets_id": 8,
+                "emplacement_id": 22,
+                "created_at": "2026-04-14T17:24:57.000000Z",
+                "updated_at": "2026-04-22T08:16:52.000000Z"
+            },
+            "table": {
+                "id": 53,
+                "numero": "01",
+                "emplacement_id": 22,
+                "statut": "occup\u00e9e",
+                "ets_id": 8,
+                "created_at": "2026-04-14T17:33:26.000000Z",
+                "updated_at": "2026-04-30T12:34:05.000000Z"
+            },
+            "chambre": null,
+            "details": [
+                {
+                    "id": 83,
+                    "facture_id": 46,
+                    "produit_id": 248,
+                    "quantite": 3,
+                    "prix_unitaire": "2500.00",
+                    "total_ligne": "7500.00",
+                    "created_at": "2026-04-26T19:18:35.000000Z",
+                    "updated_at": "2026-04-26T19:18:35.000000Z"
+                }
+            ]
+        },
+        {
+            "id": 45,
+            "numero_facture": "FAC-1777230418",
+            "date_facture": "2026-04-26T19:06:58.000000Z",
+            "user_id": 37,
+            "table_id": 53,
+            "chambre_id": null,
+            "reservation_id": null,
+            "sale_day_id": 5,
+            "total_ht": "50500.00",
+            "remise": "0.00",
+            "tva": "0.00",
+            "total_ttc": "50500.00",
+            "devise": "CDF",
+            "statut": "en_attente",
+            "statut_service": "en_attente",
+            "ets_id": 8,
+            "emplacement_id": 22,
+            "client_id": null,
+            "created_at": "2026-04-26T19:06:58.000000Z",
+            "updated_at": "2026-04-26T19:06:58.000000Z",
+            "user": {
+                "id": 37,
+                "name": "SERV M",
+                "email": "servmomo@gmail.com",
+                "email_verified_at": null,
+                "actif": false,
+                "salaire": "0.00",
+                "role": "serveur",
+                "status": "actif",
+                "ets_id": 8,
+                "emplacement_id": 22,
+                "created_at": "2026-04-14T17:24:57.000000Z",
+                "updated_at": "2026-04-22T08:16:52.000000Z"
+            },
+            "table": {
+                "id": 53,
+                "numero": "01",
+                "emplacement_id": 22,
+                "statut": "occup\u00e9e",
+                "ets_id": 8,
+                "created_at": "2026-04-14T17:33:26.000000Z",
+                "updated_at": "2026-04-30T12:34:05.000000Z"
+            },
+            "chambre": null,
+            "details": [
+                {
+                    "id": 81,
+                    "facture_id": 45,
+                    "produit_id": 248,
+                    "quantite": 1,
+                    "prix_unitaire": "2500.00",
+                    "total_ligne": "2500.00",
+                    "created_at": "2026-04-26T19:06:58.000000Z",
+                    "updated_at": "2026-04-26T19:06:58.000000Z"
+                },
+                {
+                    "id": 82,
+                    "facture_id": 45,
+                    "produit_id": 36,
+                    "quantite": 6,
+                    "prix_unitaire": "8000.00",
+                    "total_ligne": "48000.00",
+                    "created_at": "2026-04-26T19:06:58.000000Z",
+                    "updated_at": "2026-04-26T19:06:58.000000Z"
+                }
+            ]
+        },
+        {
+            "id": 44,
+            "numero_facture": "FAC-1776871609",
+            "date_facture": "2026-04-22T08:26:49.000000Z",
+            "user_id": 37,
+            "table_id": 53,
+            "chambre_id": null,
+            "reservation_id": null,
+            "sale_day_id": 5,
+            "total_ht": "15500.00",
+            "remise": "0.00",
+            "tva": "0.00",
+            "total_ttc": "15500.00",
+            "devise": "CDF",
+            "statut": "en_attente",
+            "statut_service": "en_attente",
+            "ets_id": 8,
+            "emplacement_id": 22,
+            "client_id": null,
+            "created_at": "2026-04-22T08:26:49.000000Z",
+            "updated_at": "2026-04-22T08:26:49.000000Z",
+            "user": {
+                "id": 37,
+                "name": "SERV M",
+                "email": "servmomo@gmail.com",
+                "email_verified_at": null,
+                "actif": false,
+                "salaire": "0.00",
+                "role": "serveur",
+                "status": "actif",
+                "ets_id": 8,
+                "emplacement_id": 22,
+                "created_at": "2026-04-14T17:24:57.000000Z",
+                "updated_at": "2026-04-22T08:16:52.000000Z"
+            },
+            "table": {
+                "id": 53,
+                "numero": "01",
+                "emplacement_id": 22,
+                "statut": "occup\u00e9e",
+                "ets_id": 8,
+                "created_at": "2026-04-14T17:33:26.000000Z",
+                "updated_at": "2026-04-30T12:34:05.000000Z"
+            },
+            "chambre": null,
+            "details": [
+                {
+                    "id": 78,
+                    "facture_id": 44,
+                    "produit_id": 248,
+                    "quantite": 1,
+                    "prix_unitaire": "2500.00",
+                    "total_ligne": "2500.00",
+                    "created_at": "2026-04-22T08:26:49.000000Z",
+                    "updated_at": "2026-04-22T08:26:49.000000Z"
+                },
+                {
+                    "id": 79,
+                    "facture_id": 44,
+                    "produit_id": 32,
+                    "quantite": 1,
+                    "prix_unitaire": "5000.00",
+                    "total_ligne": "5000.00",
+                    "created_at": "2026-04-22T08:26:49.000000Z",
+                    "updated_at": "2026-04-22T08:26:49.000000Z"
+                },
+                {
+                    "id": 80,
+                    "facture_id": 44,
+                    "produit_id": 36,
+                    "quantite": 1,
+                    "prix_unitaire": "8000.00",
+                    "total_ligne": "8000.00",
+                    "created_at": "2026-04-22T08:26:49.000000Z",
+                    "updated_at": "2026-04-22T08:26:49.000000Z"
+                }
+            ]
+        },
+        {
+            "id": 43,
+            "numero_facture": "FAC-1776871574",
+            "date_facture": "2026-04-22T08:26:14.000000Z",
+            "user_id": 37,
+            "table_id": 54,
+            "chambre_id": null,
+            "reservation_id": null,
+            "sale_day_id": 5,
+            "total_ht": "10500.00",
+            "remise": "0.00",
+            "tva": "0.00",
+            "total_ttc": "10500.00",
+            "devise": "CDF",
+            "statut": "en_attente",
+            "statut_service": "en_attente",
+            "ets_id": 8,
+            "emplacement_id": 22,
+            "client_id": null,
+            "created_at": "2026-04-22T08:26:14.000000Z",
+            "updated_at": "2026-04-22T08:26:14.000000Z",
+            "user": {
+                "id": 37,
+                "name": "SERV M",
+                "email": "servmomo@gmail.com",
+                "email_verified_at": null,
+                "actif": false,
+                "salaire": "0.00",
+                "role": "serveur",
+                "status": "actif",
+                "ets_id": 8,
+                "emplacement_id": 22,
+                "created_at": "2026-04-14T17:24:57.000000Z",
+                "updated_at": "2026-04-22T08:16:52.000000Z"
+            },
+            "table": {
+                "id": 54,
+                "numero": "02",
+                "emplacement_id": 22,
+                "statut": "occup\u00e9e",
+                "ets_id": 8,
+                "created_at": "2026-04-14T17:33:33.000000Z",
+                "updated_at": "2026-04-30T12:57:11.000000Z"
+            },
+            "chambre": null,
+            "details": [
+                {
+                    "id": 76,
+                    "facture_id": 43,
+                    "produit_id": 36,
+                    "quantite": 1,
+                    "prix_unitaire": "8000.00",
+                    "total_ligne": "8000.00",
+                    "created_at": "2026-04-22T08:26:14.000000Z",
+                    "updated_at": "2026-04-22T08:26:14.000000Z"
+                },
+                {
+                    "id": 77,
+                    "facture_id": 43,
+                    "produit_id": 248,
+                    "quantite": 1,
+                    "prix_unitaire": "2500.00",
+                    "total_ligne": "2500.00",
+                    "created_at": "2026-04-22T08:26:14.000000Z",
+                    "updated_at": "2026-04-22T08:26:14.000000Z"
+                }
+            ]
+        },
+        {
+            "id": 42,
+            "numero_facture": "FAC-1776686789",
+            "date_facture": "2026-04-20T05:06:29.000000Z",
+            "user_id": 37,
+            "table_id": 54,
+            "chambre_id": null,
+            "reservation_id": null,
+            "sale_day_id": 5,
+            "total_ht": "15500.00",
+            "remise": "0.00",
+            "tva": "0.00",
+            "total_ttc": "15500.00",
+            "devise": "CDF",
+            "statut": "en_attente",
+            "statut_service": "servie",
+            "ets_id": 8,
+            "emplacement_id": 22,
+            "client_id": null,
+            "created_at": "2026-04-20T05:06:29.000000Z",
+            "updated_at": "2026-04-20T05:14:44.000000Z",
+            "user": {
+                "id": 37,
+                "name": "SERV M",
+                "email": "servmomo@gmail.com",
+                "email_verified_at": null,
+                "actif": false,
+                "salaire": "0.00",
+                "role": "serveur",
+                "status": "actif",
+                "ets_id": 8,
+                "emplacement_id": 22,
+                "created_at": "2026-04-14T17:24:57.000000Z",
+                "updated_at": "2026-04-22T08:16:52.000000Z"
+            },
+            "table": {
+                "id": 54,
+                "numero": "02",
+                "emplacement_id": 22,
+                "statut": "occup\u00e9e",
+                "ets_id": 8,
+                "created_at": "2026-04-14T17:33:33.000000Z",
+                "updated_at": "2026-04-30T12:57:11.000000Z"
+            },
+            "chambre": null,
+            "details": [
+                {
+                    "id": 73,
+                    "facture_id": 42,
+                    "produit_id": 248,
+                    "quantite": 1,
+                    "prix_unitaire": "2500.00",
+                    "total_ligne": "2500.00",
+                    "created_at": "2026-04-20T05:06:29.000000Z",
+                    "updated_at": "2026-04-20T05:06:29.000000Z"
+                },
+                {
+                    "id": 74,
+                    "facture_id": 42,
+                    "produit_id": 36,
+                    "quantite": 1,
+                    "prix_unitaire": "8000.00",
+                    "total_ligne": "8000.00",
+                    "created_at": "2026-04-20T05:06:29.000000Z",
+                    "updated_at": "2026-04-20T05:06:29.000000Z"
+                },
+                {
+                    "id": 75,
+                    "facture_id": 42,
+                    "produit_id": 32,
+                    "quantite": 1,
+                    "prix_unitaire": "5000.00",
+                    "total_ligne": "5000.00",
+                    "created_at": "2026-04-20T05:06:29.000000Z",
+                    "updated_at": "2026-04-20T05:06:29.000000Z"
+                }
+            ]
+        },
+        {
+            "id": 22,
+            "numero_facture": "FAC-1776260316",
+            "date_facture": "2026-04-15T13:38:36.000000Z",
+            "user_id": 37,
+            "table_id": 54,
+            "chambre_id": null,
+            "reservation_id": null,
+            "sale_day_id": 4,
+            "total_ht": "18000.00",
+            "remise": "0.00",
+            "tva": "0.00",
+            "total_ttc": "18000.00",
+            "devise": "CDF",
+            "statut": "en_attente",
+            "statut_service": "en_attente",
+            "ets_id": 8,
+            "emplacement_id": 22,
+            "client_id": null,
+            "created_at": "2026-04-15T13:38:36.000000Z",
+            "updated_at": "2026-04-15T13:38:36.000000Z",
+            "user": {
+                "id": 37,
+                "name": "SERV M",
+                "email": "servmomo@gmail.com",
+                "email_verified_at": null,
+                "actif": false,
+                "salaire": "0.00",
+                "role": "serveur",
+                "status": "actif",
+                "ets_id": 8,
+                "emplacement_id": 22,
+                "created_at": "2026-04-14T17:24:57.000000Z",
+                "updated_at": "2026-04-22T08:16:52.000000Z"
+            },
+            "table": {
+                "id": 54,
+                "numero": "02",
+                "emplacement_id": 22,
+                "statut": "occup\u00e9e",
+                "ets_id": 8,
+                "created_at": "2026-04-14T17:33:33.000000Z",
+                "updated_at": "2026-04-30T12:57:11.000000Z"
+            },
+            "chambre": null,
+            "details": [
+                {
+                    "id": 15,
+                    "facture_id": 22,
+                    "produit_id": 32,
+                    "quantite": 2,
+                    "prix_unitaire": "5000.00",
+                    "total_ligne": "10000.00",
+                    "created_at": "2026-04-15T13:38:36.000000Z",
+                    "updated_at": "2026-04-15T13:38:36.000000Z"
+                },
+                {
+                    "id": 16,
+                    "facture_id": 22,
+                    "produit_id": 36,
+                    "quantite": 1,
+                    "prix_unitaire": "8000.00",
+                    "total_ligne": "8000.00",
+                    "created_at": "2026-04-15T13:38:36.000000Z",
+                    "updated_at": "2026-04-15T13:38:36.000000Z"
+                }
+            ]
+        },
+        {
+            "id": 21,
+            "numero_facture": "FAC-1776260314",
+            "date_facture": "2026-04-15T13:38:34.000000Z",
+            "user_id": 37,
+            "table_id": 54,
+            "chambre_id": null,
+            "reservation_id": null,
+            "sale_day_id": 4,
+            "total_ht": "18000.00",
+            "remise": "0.00",
+            "tva": "0.00",
+            "total_ttc": "18000.00",
+            "devise": "CDF",
+            "statut": "en_attente",
+            "statut_service": "en_attente",
+            "ets_id": 8,
+            "emplacement_id": 22,
+            "client_id": null,
+            "created_at": "2026-04-15T13:38:34.000000Z",
+            "updated_at": "2026-04-15T13:38:34.000000Z",
+            "user": {
+                "id": 37,
+                "name": "SERV M",
+                "email": "servmomo@gmail.com",
+                "email_verified_at": null,
+                "actif": false,
+                "salaire": "0.00",
+                "role": "serveur",
+                "status": "actif",
+                "ets_id": 8,
+                "emplacement_id": 22,
+                "created_at": "2026-04-14T17:24:57.000000Z",
+                "updated_at": "2026-04-22T08:16:52.000000Z"
+            },
+            "table": {
+                "id": 54,
+                "numero": "02",
+                "emplacement_id": 22,
+                "statut": "occup\u00e9e",
+                "ets_id": 8,
+                "created_at": "2026-04-14T17:33:33.000000Z",
+                "updated_at": "2026-04-30T12:57:11.000000Z"
+            },
+            "chambre": null,
+            "details": [
+                {
+                    "id": 13,
+                    "facture_id": 21,
+                    "produit_id": 32,
+                    "quantite": 2,
+                    "prix_unitaire": "5000.00",
+                    "total_ligne": "10000.00",
+                    "created_at": "2026-04-15T13:38:34.000000Z",
+                    "updated_at": "2026-04-15T13:38:34.000000Z"
+                },
+                {
+                    "id": 14,
+                    "facture_id": 21,
+                    "produit_id": 36,
+                    "quantite": 1,
+                    "prix_unitaire": "8000.00",
+                    "total_ligne": "8000.00",
+                    "created_at": "2026-04-15T13:38:34.000000Z",
+                    "updated_at": "2026-04-15T13:38:34.000000Z"
+                }
+            ]
+        }
+    ]
+}
+
+- POST /orders
+    -> Création d'une nouvelle commande (Envoi initial du panier).
+http://127.0.0.1:8000/api/orders
+{
+    "table_id": 53,
+    "chambre_id": null,
+    "user_id": 37,
+    "ets_id":8,
+    "remise": 0,
+    "details": [
+        {
+            "produit_id": 32,
+            "quantite": 2,
+            "prix_unitaire": 5000
+        },
+        {
+            "produit_id": 36,
+            "quantite": 1,
+            "prix_unitaire": 8000
+        }
+    ]
+}
+
+résultats 
+{
+    "status": "success",
+    "result": {
+        "numero_facture": "FAC-1777480861",
+        "user_id": 37,
+        "table_id": 53,
+        "chambre_id": null,
+        "sale_day_id": 6,
+        "remise": 0,
+        "statut": "en_attente",
+        "emplacement_id": 22,
+        "ets_id": 8,
+        "date_facture": "2026-04-29T16:41:01.000000Z",
+        "total_ht": 18000,
+        "tva": 0,
+        "total_ttc": 18000,
+        "updated_at": "2026-04-29T16:41:01.000000Z",
+        "created_at": "2026-04-29T16:41:01.000000Z",
+        "id": 46,
+        "details": [
+            {
+                "id": 83,
+                "facture_id": 46,
+                "produit_id": 32,
+                "quantite": 2,
+                "prix_unitaire": "5000.00",
+                "total_ligne": "10000.00",
+                "created_at": "2026-04-29T16:41:01.000000Z",
+                "updated_at": "2026-04-29T16:41:01.000000Z",
+                "produit": {
+                    "id": 32,
+                    "code_barre": "2250888564998",
+                    "reference": "PROD-539507",
+                    "categorie_id": 16,
+                    "libelle": "COCA",
+                    "prix_unitaire": "5000.00",
+                    "unite": null,
+                    "qte_init": 10,
+                    "seuil_reappro": 50,
+                    "quantified": 1,
+                    "tva": 0,
+                    "image": null,
+                    "ets_id": 8,
+                    "created_at": "2026-04-15T00:30:34.000000Z",
+                    "updated_at": "2026-04-15T00:30:34.000000Z"
+                }
+            },
+            {
+                "id": 84,
+                "facture_id": 46,
+                "produit_id": 36,
+                "quantite": 1,
+                "prix_unitaire": "8000.00",
+                "total_ligne": "8000.00",
+                "created_at": "2026-04-29T16:41:01.000000Z",
+                "updated_at": "2026-04-29T16:41:01.000000Z",
+                "produit": {
+                    "id": 36,
+                    "code_barre": "1747788439132",
+                    "reference": "PROD-725437",
+                    "categorie_id": 16,
+                    "libelle": "FANTA",
+                    "prix_unitaire": "8000.00",
+                    "unite": "cannete",
+                    "qte_init": 15,
+                    "seuil_reappro": 10,
+                    "quantified": 1,
+                    "tva": 0,
+                    "image": null,
+                    "ets_id": 8,
+                    "created_at": "2026-04-15T20:35:07.000000Z",
+                    "updated_at": "2026-04-15T20:35:07.000000Z"
+                }
+            }
+        ]
+    },
+    "message": "Facture créée avec succès !"
+}
+
+### 5. ACTIONS SPÉCIFIQUES SUR COMMANDES (MODIFICATIONS)
+- PUT /orders/{id}
+    -> Modifier le contenu (Ajouter/Retirer des articles après validation).
+{
+    "message": "Le champ ets id est requis. (and 1 more error)",
+    "errors": {
+        "ets_id": [
+            "Le champ ets id est requis."
+        ],
+        "details": [
+            "Le champ details est requis."
+        ]
+
+- PATCH /orders/{id}/table
+    -> Changer la table d'une commande (Déplacement client).
+
+http://127.0.0.1:8000/api/orders/46/table
+{
+    "op": "transfert",
+    "source_id": 53,
+    "cible_id": 54
+}
+{
+    "status": "success",
+    "result": "Transfert effectué avec succès !"
+}
+- POST /orders/merge
+    -> Fusionner deux commandes (Ex: Table 5 rejoint la Table 2).
+    -> Body: { "source_order_id": "...", "target_order_id": "..." }
+
+
+
+### 6. CLÔTURE & PAIEMENT
+- POST /orders/{id}/print
+    -> Lancer l'impression de la pré-facture (Ticket).
+http://127.0.0.1:8000/api/orders/46/print
+
+{
+    "success": true,
+    "commande": {
+        "id": 46,
+        "numero_facture": "FAC-1777480861",
+        "date_facture": "2026-04-29T16:41:01.000000Z",
+        "user_id": 37,
+        "table_id": 54,
+        "chambre_id": null,
+        "reservation_id": null,
+        "sale_day_id": 6,
+        "total_ht": "18000.00",
+        "remise": "0.00",
+        "tva": "0.00",
+        "total_ttc": "18000.00",
+        "devise": "CDF",
+        "statut": "payée",
+        "statut_service": "en_attente",
+        "ets_id": 8,
+        "emplacement_id": 22,
+        "client_id": null,
+        "created_at": "2026-04-29T16:41:01.000000Z",
+        "updated_at": "2026-04-29T16:57:22.000000Z",
+        "user": {
+            "id": 37,
+            "name": "SERV M",
+            "email": "servmomo@gmail.com",
+            "email_verified_at": null,
+            "actif": false,
+            "salaire": "0.00",
+            "role": "serveur",
+            "status": "actif",
+            "ets_id": 8,
+            "emplacement_id": 22,
+            "created_at": "2026-04-15T00:24:57.000000Z",
+            "updated_at": "2026-04-22T15:16:52.000000Z"
+        },
+        "table": {
+            "id": 54,
+            "numero": "02",
+            "emplacement_id": 22,
+            "statut": "occupée",
+            "ets_id": 8,
+            "created_at": "2026-04-15T00:33:33.000000Z",
+            "updated_at": "2026-04-27T09:59:19.000000Z",
+            "emplacement": {
+                "id": 22,
+                "libelle": "EMPA",
+                "type": "restaurant & lounge",
+                "ets_id": 8,
+                "created_at": "2026-04-15T00:24:03.000000Z",
+                "updated_at": "2026-04-15T00:24:03.000000Z"
+            }
+        },
+        "chambre": null,
+        "client": null,
+        "details": [
+            {
+                "id": 83,
+                "facture_id": 46,
+                "produit_id": 32,
+                "quantite": 2,
+                "prix_unitaire": "5000.00",
+                "total_ligne": "10000.00",
+                "created_at": "2026-04-29T16:41:01.000000Z",
+                "updated_at": "2026-04-29T16:41:01.000000Z",
+                "produit": {
+                    "id": 32,
+                    "code_barre": "2250888564998",
+                    "reference": "PROD-539507",
+                    "categorie_id": 16,
+                    "libelle": "COCA",
+                    "prix_unitaire": "5000.00",
+                    "unite": null,
+                    "qte_init": 10,
+                    "seuil_reappro": 50,
+                    "quantified": 1,
+                    "tva": 0,
+                    "image": null,
+                    "ets_id": 8,
+                    "created_at": "2026-04-15T00:30:34.000000Z",
+                    "updated_at": "2026-04-15T00:30:34.000000Z",
+                    "categorie": {
+                        "id": 16,
+                        "libelle": "BOISSON SUCREE",
+                        "code": "3D62FF",
+                        "type_service": "boisson",
+                        "couleur": "#00ff00",
+                        "ets_id": 8,
+                        "created_at": "2026-04-15T00:29:23.000000Z",
+                        "updated_at": "2026-04-15T00:29:23.000000Z"
+                    }
+                }
+            },
+            {
+                "id": 84,
+                "facture_id": 46,
+                "produit_id": 36,
+                "quantite": 1,
+                "prix_unitaire": "8000.00",
+                "total_ligne": "8000.00",
+                "created_at": "2026-04-29T16:41:01.000000Z",
+                "updated_at": "2026-04-29T16:41:01.000000Z",
+                "produit": {
+                    "id": 36,
+                    "code_barre": "1747788439132",
+                    "reference": "PROD-725437",
+                    "categorie_id": 16,
+                    "libelle": "FANTA",
+                    "prix_unitaire": "8000.00",
+                    "unite": "cannete",
+                    "qte_init": 15,
+                    "seuil_reappro": 10,
+                    "quantified": 1,
+                    "tva": 0,
+                    "image": null,
+                    "ets_id": 8,
+                    "created_at": "2026-04-15T20:35:07.000000Z",
+                    "updated_at": "2026-04-15T20:35:07.000000Z",
+                    "categorie": {
+                        "id": 16,
+                        "libelle": "BOISSON SUCREE",
+                        "code": "3D62FF",
+                        "type_service": "boisson",
+                        "couleur": "#00ff00",
+                        "ets_id": 8,
+                        "created_at": "2026-04-15T00:29:23.000000Z",
+                        "updated_at": "2026-04-15T00:29:23.000000Z"
+                    }
+                }
+            }
+        ],
+        "payments": [
+            {
+                "id": 36,
+                "amount": 18000,
+                "devise": "CDF",
+                "mode": "cash",
+                "mode_ref": null,
+                "pay_date": "2026-04-29 17:57:22",
+                "emplacement_id": 22,
+                "facture_id": 46,
+                "table_id": 54,
+                "chambre_id": null,
+                "caissier_id": null,
+                "sale_day_id": 6,
+                "user_id": 38,
+                "ets_id": 8,
+                "created_at": "2026-04-29T16:57:22.000000Z",
+                "updated_at": "2026-04-29T16:57:22.000000Z"
+            }
+        ]
+    },
+    "details": [
+        {
+            "id": 83,
+            "facture_id": 46,
+            "produit_id": 32,
+            "quantite": 2,
+            "prix_unitaire": "5000.00",
+            "total_ligne": "10000.00",
+            "created_at": "2026-04-29T16:41:01.000000Z",
+            "updated_at": "2026-04-29T16:41:01.000000Z",
+            "produit": {
+                "id": 32,
+                "code_barre": "2250888564998",
+                "reference": "PROD-539507",
+                "categorie_id": 16,
+                "libelle": "COCA",
+                "prix_unitaire": "5000.00",
+                "unite": null,
+                "qte_init": 10,
+                "seuil_reappro": 50,
+                "quantified": 1,
+                "tva": 0,
+                "image": null,
+                "ets_id": 8,
+                "created_at": "2026-04-15T00:30:34.000000Z",
+                "updated_at": "2026-04-15T00:30:34.000000Z",
+                "categorie": {
+                    "id": 16,
+                    "libelle": "BOISSON SUCREE",
+                    "code": "3D62FF",
+                    "type_service": "boisson",
+                    "couleur": "#00ff00",
+                    "ets_id": 8,
+                    "created_at": "2026-04-15T00:29:23.000000Z",
+                    "updated_at": "2026-04-15T00:29:23.000000Z"
+                }
+            }
+        },
+        {
+            "id": 84,
+            "facture_id": 46,
+            "produit_id": 36,
+            "quantite": 1,
+            "prix_unitaire": "8000.00",
+            "total_ligne": "8000.00",
+            "created_at": "2026-04-29T16:41:01.000000Z",
+            "updated_at": "2026-04-29T16:41:01.000000Z",
+            "produit": {
+                "id": 36,
+                "code_barre": "1747788439132",
+                "reference": "PROD-725437",
+                "categorie_id": 16,
+                "libelle": "FANTA",
+                "prix_unitaire": "8000.00",
+                "unite": "cannete",
+                "qte_init": 15,
+                "seuil_reappro": 10,
+                "quantified": 1,
+                "tva": 0,
+                "image": null,
+                "ets_id": 8,
+                "created_at": "2026-04-15T20:35:07.000000Z",
+                "updated_at": "2026-04-15T20:35:07.000000Z",
+                "categorie": {
+                    "id": 16,
+                    "libelle": "BOISSON SUCREE",
+                    "code": "3D62FF",
+                    "type_service": "boisson",
+                    "couleur": "#00ff00",
+                    "ets_id": 8,
+                    "created_at": "2026-04-15T00:29:23.000000Z",
+                    "updated_at": "2026-04-15T00:29:23.000000Z"
+                }
+            }
+        }
+    ],
+    "paiements": [
+        {
+            "id": 36,
+            "amount": 18000,
+            "devise": "CDF",
+            "mode": "cash",
+            "mode_ref": null,
+            "pay_date": "2026-04-29 17:57:22",
+            "emplacement_id": 22,
+            "facture_id": 46,
+            "table_id": 54,
+            "chambre_id": null,
+            "caissier_id": null,
+            "sale_day_id": 6,
+            "user_id": 38,
+            "ets_id": 8,
+            "created_at": "2026-04-29T16:57:22.000000Z",
+            "updated_at": "2026-04-29T16:57:22.000000Z"
+        }
+    ]
+}
+
+- POST /orders/{id}/pay
+    -> Finaliser l'encaissement et libérer la table.
+http://127.0.0.1:8000/api/orders/46/pay
+{
+    "ets_id": 8,
+    "user_id": 38,
+    "mode": "cash",
+    "mode_ref": null
+}
+{
+    "status": "success",
+    "message": "Paiement effectué avec succès !",
+    "result": {
+        "amount": "18000.00",
+        "devise": "CDF",
+        "mode": "cash",
+        "mode_ref": null,
+        "pay_date": "2026-04-29T16:57:22.759720Z",
+        "emplacement_id": 22,
+        "facture_id": 46,
+        "table_id": 54,
+        "user_id": 38,
+        "sale_day_id": 6,
+        "ets_id": 8,
+        "updated_at": "2026-04-29T16:57:22.000000Z",
+        "created_at": "2026-04-29T16:57:22.000000Z",
+        "id": 36
+    }
+}
+
+### 7. MAINTENANCE (OTA)
+- GET /app/version
+    -> Vérifier la présence d'une mise à jour APK.

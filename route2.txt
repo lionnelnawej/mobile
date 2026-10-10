@@ -1,0 +1,34 @@
+GET    /api/orders/active                - Commandes actives [commandesController@index]
+       Paramètres: ?user_id=int ou ?ets_id=int
+       Succès: { "status": "success", "orders": [...] }
+
+POST   /api/orders                       - Créer commande/facture [HomeController@saveFacture]
+       Données: { "ets_id": int, "products": [...], "table_id": int, ... }
+       Succès: { "status": "success", "facture": {...} }
+
+
+PATCH  /api/orders/{id}/table             - Transférer commande vers table [AdminController@triggerTableOperation]
+       Données: { "op": "transfert", "facture_id": int }
+       Succès: { "status": "success", "message": "Transfert effectué" }
+
+POST   /api/orders/merge                  - Fusionner commandes [factureFactureController@fusionner]
+       Données: { "facture_ids": [int, int], ... }
+       Succès: { "status": "success", "facture": {...} }
+
+GET    /api/orders/{id}                  - Détails commande [CommandeController@getCommandeDetails]
+       Paramètres: ?ets_id=int
+       Succès: { "status": "success", "commande": {...} }
+
+POST   /api/orders/{id}/print             - Imprimer commande [CommandeController@getCommandeDetails]
+       Données: { "ets_id": int }
+       Succès: { "status": "success", "commande": {...} }
+
+POST   /api/orders/{id}/pay               - Payer commande [AdminController@createPayment]
+       Données: { "ets_id": int, "montant": float, "methode": "string", ... }
+       Succès: { "status": "success", "payment": {...} }
+
+
+================================================================================
+ENDPOINTS CAISSIER
+================================================================================
+

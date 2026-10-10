@@ -1,0 +1,246 @@
+================================================================================
+                        LOYAMBO - SERVER ENDPOINTS
+                    Liste complète des endpoints du serveur
+================================================================================
+
+Date de mise à jour: 22 Avril 2026
+Version: 1.0
+
+================================================================================
+ROUTES D'AUTHENTIFICATION
+================================================================================
+
+POST   /register                          - Enregistrement utilisateur (Auth::routes())
+POST   /login                             - Connexion utilisateur (Auth::routes())
+POST   /logout                            - Déconnexion utilisateur (Auth::routes())
+POST   /password/email                    - Demande réinitialisation mot de passe (Auth::routes())
+POST   /password/reset                    - Réinitialisation mot de passe (Auth::routes())
+POST   /create.account                    - Création compte établissement [UserController@createEtsAccount]
+
+================================================================================
+GESTION DES JOURNÉES (VENTES)
+================================================================================
+
+GET    /                                  - Accueil [Middleware: auth, check.day.access]
+GET    /dashboard                         - Tableau de bord [Middleware: auth, check.day.access]
+POST   /day.start                         - Ouverture journée [AdminController@startDay] [Permission: ouvrir-journee]
+POST   /day.close                         - Fermeture journée [AdminController@closeDay] [Permission: cloturer-journee]
+POST   /day.close.report                  - Rapport fermeture journée [AdminController@closeDayReport] [Permission: cloturer-journee]
+GET    /caisse.day.report/{sale_day_id}  - Génération PDF rapport caisse [AdminController@generatePDF] [Permission: cloturer-journee]
+GET    /rapports.ventes                   - Rapport des ventes [ReportController@ventes]
+GET    /reports.all                       - Tous les rapports [AdminController@viewGlobalReports]
+GET    /report.detail                     - Détails rapport journée [AdminController@showDaySaleFacturesByCaissier]
+GET    /reports/journee/{id}              - Affichage rapport journée [ReportController@showJournee]
+GET    /reports/journee/{id}/print        - Impression rapport journée [ReportController@printJournee]
+
+================================================================================
+GESTION DES UTILISATEURS
+================================================================================
+
+GET    /users                             - Page gestion utilisateurs
+GET    /users.all                         - Récupérer tous utilisateurs [AdminController@getAllUsersWithLatestLog] [Permission: voir-utilisateurs]
+GET    /serveurs.all                      - Récupérer tous serveurs [AdminController@getAllServeurs] [Permission: voir-serveurs]
+GET    /serveurs.services                 - Services des serveurs [AdminController@getAllServeursServices]
+POST   /user.create                       - Créer utilisateur [UserController@createUser] [Permission: creer-utilisateurs]
+POST   /user.delete                       - Supprimer utilisateur [Permission: supprimer-utilisateurs]
+POST   /user.give.access                  - Modifier permissions utilisateur [AdminController@updateUserPermissions] [Permission: modifier-utilisateurs]
+GET    /permissions                       - Récupérer toutes permissions [AdminController@getAllPermissions]
+
+================================================================================
+GESTION DES PRODUITS & CATÉGORIES
+================================================================================
+
+GET    /products                          - Page gestion produits
+GET    /products.all                      - Tous les produits [ProductController@getAllProducts] [Permission: voir-produits]
+POST   /product.create                    - Créer produit [ProductController@createProduct] [Permission: creer-produits]
+POST   /product.update.quantified         - Modifier quantification produit [ProductController@updateProductQuantified] [Permission: modifier-produits]
+POST   /product.update.tva                - Modifier TVA produit [ProductController@updateProductTva] [Permission: modifier-produits]
+
+GET    /products.categories               - Page catégories produits
+GET    /categories.all                    - Toutes catégories [ProductController@getAllCategories] [Permission: voir-categories]
+POST   /categorie.create                  - Créer catégorie [ProductController@createCategory] [Permission: creer-categories]
+
+GET    /products.entree                   - Page entrée stock [Permission: creer-produits]
+
+================================================================================
+GESTION DU STOCK & MOUVEMENTS
+================================================================================
+
+GET    /products.mvts                     - Page mouvements stock
+GET    /mvts.all                          - Tous les mouvements [ProductController@getStockMvts] [Permission: voir-mouvements-stock]
+POST   /mvt.create                        - Créer mouvement stock [ProductController@createStockMvt] [Permission: creer-mouvements-stock]
+POST   /mvt.entree                        - Entrée stock [ProductController@entreeStockMvt] [Permission: creer-mouvements-stock]
+POST   /mvts.delete                       - Supprimer mouvement [ProductController@deleteMvt] [Permission: supprimer-mouvements-stock]
+
+GET    /fiche_stock                       - Fiche stock [ProductController@getFicheStockData]
+GET    /fiche_stock.pdf                   - Exporter fiche stock PDF [ProductController@exportFicheStockToPDF]
+GET    /fiche_stock.excel                 - Exporter fiche stock Excel [ProductController@exportFicheStockToExcel]
+
+================================================================================
+GESTION DES INVENTAIRES
+================================================================================
+
+GET    /products.inventories              - Page inventaires
+GET    /inventories.all                   - Historique inventaires [InventoryController@getInventoriesHistory]
+POST   /inventory.start                   - Démarrer inventaire [InventoryController@startInventory]
+POST   /inventory.validate                - Valider inventaire [InventoryController@validateInventory]
+GET    /inventory.current                 - Inventaire courant [InventoryController@getCurrentInventory]
+POST   /inventory.delete                  - Supprimer inventaire [InventoryController@deleteInventory]
+GET    /inventory.products                - Produits avec stock [InventoryController@getAllProductsWithStock]
+
+GET    /reports.inventaires               - Rapport inventaires [InventaireController@index]
+GET    /reports.stocks                    - Rapport stocks [InventaireController@stocks]
+GET    /reports.Mouvements                - Rapport mouvements stock [InventaireController@mouvementstock]
+
+================================================================================
+GESTION DES EMPLACEMENTS & TABLES
+================================================================================
+
+GET    /tables.emplacements               - Page emplacements
+GET    /tables                            - Page tables
+GET    /emplacements.all                  - Tous emplacements [AdminController@getAllEmplacements] [Permission: voir-emplacements]
+POST   /emplacement.create                - Créer emplacement [AdminController@createEmplacement] [Permission: creer-emplacements]
+
+GET    /tables.all                        - Toutes tables [AdminController@getAllTables] [Permission: voir-tables]
+POST   /table.create                      - Créer table [AdminController@createTable] [Permission: creer-tables]
+POST   /table.operation                   - Opération table [AdminController@triggerTableOperation] [Permission: voir-tables]
+POST   /table.liberer                     - Libérer table [AdminController@libererTable]
+
+GET    /tables.occuped                    - Tables occupées
+
+================================================================================
+GESTION DES COMMANDES & SERVEURS
+================================================================================
+
+GET    /orders                            - Page commandes
+GET    /orders.portal                     - Portail serveur
+GET    /orders.interface                  - Interface commandes
+GET    /cuisine                           - Page cuisine [Middleware: auth]
+
+GET    /serveurs                          - Page gestion serveurs
+GET    /serveurs.activities               - Activités serveurs
+POST   /cmd.servir                        - Servir commande [AdminController@servirCommande]
+
+GET    /commandes                         - Liste commandes [commandesController@index]
+GET    /commandes/servir/{id}             - Servir commande [commandesController@servir]
+GET    /commandes/edit/{id}               - Éditer commande [commandesController@edit]
+PUT    /commandes/{id}                    - Mettre à jour commande [commandesController@update]
+
+GET    /reports.commandes                 - Rapport commandes [CommandeController@index]
+GET    /reports/commandes/{id}            - Détails commandes [CommandeController@getCommandeDetails]
+
+================================================================================
+GESTION DES FACTURES & VENTES
+================================================================================
+
+GET    /factures                          - Page factures
+GET    /factures.all                      - Toutes factures [HomeController@getAllFacturesCmds] [Permission: voir-factures]
+POST   /facture.create                    - Créer facture [HomeController@saveFacture] [Permission: creer-factures]
+POST   /factures.link                     - Lier factures [HomeController@linkFactures] [Permission: creer-factures]
+
+GET    /sells                             - Page ventes
+GET    /sells.all                         - Toutes ventes [HomeController@getAllSells] [Permission: voir-ventes]
+
+GET    /counts.all                        - Compteurs dashboard [HomeController@dashboardCounter]
+
+POST   /payment.create                    - Créer paiement [AdminController@createPayment]
+
+GET    /reports.service.vente             - Rapport ventes par service [VentreSrviceController@index]
+GET    /reports/service/vente/emplacement/{emplacement_id} - Ventes par emplacement [VentreSrviceController@showEmplacementSales]
+GET    /reports/service/vente/details/{id_saleDay}/{emplacement_id} - Détails ventes [VentreSrviceController@showSaleDetails]
+GET    /reports.produits                  - Rapport produits [ProduitController@index]
+GET    /reports/produits-plus-vendus/{emplacement_id} - Produits plus vendus [ProduitController@showProduitsPlusVendus]
+
+================================================================================
+GESTION HÔTEL - CHAMBRES & RÉSERVATIONS
+================================================================================
+
+GET    /bedroom.reserve                   - Page réservation chambres [Permission: voir-chambres]
+GET    /chambres.all                      - Toutes chambres [AdminController@getAllChambres] [Permission: voir-chambres]
+POST   /chambre.status                    - Mettre à jour statut chambre [AdminController@updateBedRoomStatus]
+POST   /reservation.action                - Action réservation [AdminController@reserverChambreOrTable]
+GET    /beds.occuped                      - Chambres occupées
+
+GET    /reservations                      - Page réservations
+GET    /reservations.all                  - Toutes réservations [ReservationController@viewAllReservations]
+GET    /reservation.created               - Page création réservation [ReservationController@createReservationView]
+POST   /reservation.create                - Créer réservation [ReservationController@reserverChambre]
+POST   /reservation.update                - Modifier réservation [ReservationController@modifierReservation]
+POST   /reservation.extend                - Prolonger réservation [ReservationController@extendReservationDay]
+POST   /reservation.pay                   - Payer réservation [ReservationController@payerReservation]
+GET    /reservation.cancel/{id}           - Annuler réservation [ReservationController@annulerReservation]
+GET    /reservation.facture/{id}          - Facture réservation [ReservationController@getReservationFacture]
+GET    /reservation.details/{id}          - Détails réservation [ReservationController@getReservationDetails]
+GET    /chambre.occuper/{chambreId}       - Occuper chambre [ReservationController@occupeChambre]
+GET    /chambres/{name}                   - Chambres [libre|occupee|reservee|all]
+
+================================================================================
+GESTION DES RAPPORTS & PERFORMANCES
+================================================================================
+
+GET    /reports.global                    - Rapports globaux
+GET    /reports.performance               - Rapport performance [PerfomanceUserController@index]
+GET    /reports.finances                  - Rapport finances [financeController@finances]
+GET    /reports/payment-details/{id}      - Détails paiement [financeController@getPaymentDetails]
+
+================================================================================
+GESTION DES PARAMÈTRES
+================================================================================
+
+GET    /settings                          - Page paramètres
+GET    /licence.payment                   - Page paiement licence [UserController@redirectToPayment]
+POST   /licence.payment.confirm           - Confirmer paiement licence [UserController@confirmPayment]
+GET    /licences/pricing                  - Page tarification licences
+
+POST   /link.request                      - Envoyer demande liaison comptabilité [SettingController@sendLinkRequest]
+GET    /link.check                        - Vérifier liaison comptabilité [SettingController@checkLink]
+
+================================================================================
+API ROUTES (CORS ENABLED)
+================================================================================
+
+Note: Les routes API sont actuellement vides (group vide middleware CORS)
+
+================================================================================
+RÉSUMÉ STATISTIQUES
+================================================================================
+
+Total Endpoints: 100+
+Principaux Contrôleurs:
+  - AdminController: Gestion globale, day management, users, tables, payments
+  - HomeController: Factures, ventes, compteurs
+  - ProductController: Produits, catégories, stock, mouvements
+  - InventoryController: Inventaires
+  - ReservationController: Réservations hôtel
+  - ReportController: Rapports
+  - UserController: Utilisateurs, authentification
+  - CommandesController: Commandes
+  - SettingController: Paramètres, liaison
+
+Permissions principales:
+  - ouvrir-journee
+  - cloturer-journee
+  - voir-utilisateurs, creer-utilisateurs, modifier-utilisateurs, supprimer-utilisateurs
+  - voir-categories, creer-categories
+  - voir-produits, creer-produits, modifier-produits
+  - voir-mouvements-stock, creer-mouvements-stock, supprimer-mouvements-stock
+  - voir-emplacements, creer-emplacements
+  - voir-tables, creer-tables
+  - voir-factures, creer-factures
+  - voir-ventes
+  - voir-chambres
+  - voir-serveurs
+
+Middlewares:
+  - auth: Authentification requise
+  - check.day.access: Vérification accès journée
+  - can: Vérification permissions
+
+================================================================================
+Notes importantes:
+- Tous les endpoints sont protégés par le middleware 'auth' sauf indication contraire
+- Les permissions sont gérées via le middleware 'can' pour les actions sensibles
+- Les routes API sont prêtes pour l'expansion (CORS activé)
+- Les emplacements peuvent être de type 'table' ou 'hôtel'
+- Les routes de vues (Route::view) affichent les interfaces front-end
+================================================================================

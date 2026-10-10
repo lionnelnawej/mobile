@@ -1,0 +1,800 @@
+﻿================================================================================
+API ROUTES (CORS ENABLED)
+================================================================================
+
+================================================================================
+AUTHENTIFICATION MOBILE
+================================================================================
+
+POST   /api/mobile/login                 - Connexion mobile (user_id uniquement) [MobileAuthController@loginMobile]
+       Données: { "user_id": int }
+       Succès: { "status": "success", "user": {...}, "token": "..." }
+
+POST   /api/login                        - Connexion email + mot de passe [MobileAuthController@loginEmail]
+       Données: { "email": "string", "password": "string" }
+       Succès: { "status": "success", "user": {...}, "token": "..." }
+
+================================================================================
+ENDPOINTS MOBILES (MENU, AIRES, TABLES, COMMANDES)
+================================================================================
+
+GET    /api/categories                   - Toutes les catégories [ProductController@getAllCategories]
+       Paramètres: ?ets_id=int
+       Succès: { "status": "success", "categories": [...] }
+
+GET    /api/products                     - Tous les produits [ProductController@getAllProducts]
+       Paramètres: ?ets_id=int
+       Succès: { "status": "success", "products": [...] }
+
+GET    /api/areas                        - Tous les emplacements [AdminController@getAllEmplacements]
+       Paramètres: ?ets_id=int
+       Succès: { "status": "success", "areas": [...] }
+
+GET    /api/tables                       - Toutes les tables [AdminController@getAllTables]
+       Paramètres: ?ets_id=int, user_id
+       Succès: { "status": "success", "tables": [...] }
+
+{
+    "status": "success",
+    "tables": [
+        {
+            "id": 54,
+            "numero": "02",
+            "emplacement_id": 22,
+            "statut": "libre",
+            "ets_id": 8,
+            "created_at": "2026-04-15T00:33:33.000000Z",
+            "updated_at": "2026-05-01T10:34:34.000000Z",
+            "emplacement": {
+                "id": 22,
+                "libelle": "EMPA",
+                "type": "restaurant & lounge",
+                "ets_id": 8,
+                "created_at": "2026-04-15T00:24:03.000000Z",
+                "updated_at": "2026-04-15T00:24:03.000000Z"
+            },
+            "commandes": []
+        },
+        {
+            "id": 53,
+            "numero": "01",
+            "emplacement_id": 22,
+            "statut": "libre",
+            "ets_id": 8,
+            "created_at": "2026-04-15T00:33:26.000000Z",
+            "updated_at": "2026-05-01T10:39:25.000000Z",
+            "emplacement": {
+                "id": 22,
+                "libelle": "EMPA",
+                "type": "restaurant & lounge",
+                "ets_id": 8,
+                "created_at": "2026-04-15T00:24:03.000000Z",
+                "updated_at": "2026-04-15T00:24:03.000000Z"
+            },
+            "commandes": []
+        }
+    ],
+    "chambres": []
+}
+
+================================================================================
+GESTION DES COMMANDES (ORDERS)
+================================================================================
+
+GET    /api/orders/active                - Commandes actives [commandesController@index]
+       Paramètres: ?user_id=int ou ?ets_id=int
+       Succès: { "status": "success", "orders": [...] }
+
+POST   /api/orders                       - Créer commande/facture [HomeController@saveFacture]
+       Données: { "ets_id": int, "products": [...], "table_id": int, ... }
+       Succès: { "status": "success", "facture": {...} }
+
+
+PATCH  /api/orders/{id}/table             - Transférer commande vers table [AdminController@triggerTableOperation]
+       Données: { "op": "transfert", "facture_id": int }
+       Succès: { "status": "success", "message": "Transfert effectué" }
+
+POST   /api/orders/merge                  - Fusionner commandes [factureFactureController@fusionner]
+       Données: { "facture_ids": [int, int], ... }
+       Succès: { "status": "success", "facture": {...} }
+
+GET    /api/orders/{id}                  - Détails commande [CommandeController@getCommandeDetails]
+       Paramètres: ?ets_id=int
+       Succès: { "status": "success", "commande": {...} }
+
+POST   /api/orders/{id}/print             - Imprimer commande [CommandeController@getCommandeDetails]
+       Données: { "ets_id": int }
+       Succès: { "status": "success", "commande": {...} }
+
+POST   /api/orders/{id}/pay               - Payer commande [AdminController@createPayment]
+       Données: { "ets_id": int, "montant": float, "methode": "string", ... }
+       Succès: { "status": "success", "payment": {...} }
+
+================================================================================
+ENDPOINTS CAISSIER
+================================================================================
+
+
+GET    /api/caissier/factures.all         - Toutes les factures [HomeController@getAllFacturesCmds]
+       Paramètres: ?ets_id=int
+       Succès: { "status": "success", "factures": [...] }
+{
+    "status": "success",
+    "factures": [
+        {
+            "id": 47,
+            "numero_facture": "FAC-1777628733",
+            "date_facture": "2026-05-01T09:45:33.000000Z",
+            "user_id": 37,
+            "table_id": 53,
+            "chambre_id": null,
+            "reservation_id": null,
+            "sale_day_id": 6,
+            "total_ht": "18000.00",
+            "remise": "0.00",
+            "tva": "0.00",
+            "total_ttc": "18000.00",
+            "devise": "CDF",
+            "statut": "en_attente",
+            "statut_service": "en_attente",
+            "ets_id": 8,
+            "emplacement_id": 22,
+            "client_id": null,
+            "created_at": "2026-05-01T09:45:33.000000Z",
+            "updated_at": "2026-05-01T09:48:40.000000Z",
+            "details": [
+                {
+                    "id": 85,
+                    "facture_id": 47,
+                    "produit_id": 32,
+                    "quantite": 2,
+                    "prix_unitaire": "5000.00",
+                    "total_ligne": "10000.00",
+                    "created_at": "2026-05-01T09:45:33.000000Z",
+                    "updated_at": "2026-05-01T09:45:33.000000Z",
+                    "produit": {
+                        "id": 32,
+                        "code_barre": "2250888564998",
+                        "reference": "PROD-539507",
+                        "categorie_id": 16,
+                        "libelle": "COCA",
+                        "prix_unitaire": "5000.00",
+                        "unite": null,
+                        "qte_init": 10,
+                        "seuil_reappro": 50,
+                        "quantified": 1,
+                        "tva": 0,
+                        "image": null,
+                        "ets_id": 8,
+                        "created_at": "2026-04-15T00:30:34.000000Z",
+                        "updated_at": "2026-04-15T00:30:34.000000Z",
+                        "categorie": {
+                            "id": 16,
+                            "libelle": "BOISSON SUCREE",
+                            "code": "3D62FF",
+                            "type_service": "boisson",
+                            "couleur": "#00ff00",
+                            "ets_id": 8,
+                            "created_at": "2026-04-15T00:29:23.000000Z",
+                            "updated_at": "2026-04-15T00:29:23.000000Z"
+                        }
+                    }
+                },
+                {
+                    "id": 86,
+                    "facture_id": 47,
+                    "produit_id": 36,
+                    "quantite": 1,
+                    "prix_unitaire": "8000.00",
+                    "total_ligne": "8000.00",
+                    "created_at": "2026-05-01T09:45:33.000000Z",
+                    "updated_at": "2026-05-01T09:45:33.000000Z",
+                    "produit": {
+                        "id": 36,
+                        "code_barre": "1747788439132",
+                        "reference": "PROD-725437",
+                        "categorie_id": 16,
+                        "libelle": "FANTA",
+                        "prix_unitaire": "8000.00",
+                        "unite": "cannete",
+                        "qte_init": 15,
+                        "seuil_reappro": 10,
+                        "quantified": 1,
+                        "tva": 0,
+                        "image": null,
+                        "ets_id": 8,
+                        "created_at": "2026-04-15T20:35:07.000000Z",
+                        "updated_at": "2026-04-15T20:35:07.000000Z",
+                        "categorie": {
+                            "id": 16,
+                            "libelle": "BOISSON SUCREE",
+                            "code": "3D62FF",
+                            "type_service": "boisson",
+                            "couleur": "#00ff00",
+                            "ets_id": 8,
+                            "created_at": "2026-04-15T00:29:23.000000Z",
+                            "updated_at": "2026-04-15T00:29:23.000000Z"
+                        }
+                    }
+                }
+            ],
+            "table": {
+                "id": 53,
+                "numero": "01",
+                "emplacement_id": 22,
+                "statut": "occupée",
+                "ets_id": 8,
+                "created_at": "2026-04-15T00:33:26.000000Z",
+                "updated_at": "2026-05-01T09:45:33.000000Z",
+                "emplacement": {
+                    "id": 22,
+                    "libelle": "EMPA",
+                    "type": "restaurant & lounge",
+                    "ets_id": 8,
+                    "created_at": "2026-04-15T00:24:03.000000Z",
+                    "updated_at": "2026-04-15T00:24:03.000000Z"
+                }
+            },
+            "chambre": null,
+            "payments": [],
+            "sale_day": {
+                "id": 6,
+                "sale_date": "26/04/2026",
+                "start_time": "27/04/2026 09:57",
+                "end_time": null,
+                "ets_id": 8,
+                "created_at": "27/04/2026 09:57",
+                "updated_at": "27/04/2026 09:57"
+            },
+            "user": {
+                "id": 37,
+                "name": "SERV M",
+                "email": "servmomo@gmail.com",
+                "email_verified_at": null,
+                "actif": false,
+                "salaire": "0.00",
+                "role": "serveur",
+                "status": "actif",
+                "ets_id": 8,
+                "emplacement_id": 22,
+                "created_at": "2026-04-15T00:24:57.000000Z",
+                "updated_at": "2026-04-22T15:16:52.000000Z"
+            }
+        },
+
+
+GET    /api/caissier/sells.all            - Toutes les ventes [HomeController@getAllSells]
+       Paramètres: ?ets_id=int
+       Succès: { "status": "success", "sells": [...] }
+{
+    "status": "success",
+    "ventes": [
+        {
+            "produit_id": 32,
+            "total_vendu": "2",
+            "byUsers": [
+                {
+                    "facture_id": 46,
+                    "user_id": 37,
+                    "nom": "SERV M",
+                    "quantite": "2",
+                    "montant": 10000
+                }
+            ],
+            "produit": {
+                "id": 32,
+                "code_barre": "2250888564998",
+                "reference": "PROD-539507",
+                "categorie_id": 16,
+                "libelle": "COCA",
+                "prix_unitaire": "5000.00",
+                "unite": null,
+                "qte_init": 10,
+                "seuil_reappro": 50,
+                "quantified": 1,
+                "tva": 0,
+                "image": null,
+                "ets_id": 8,
+                "created_at": "2026-04-15T00:30:34.000000Z",
+                "updated_at": "2026-04-15T00:30:34.000000Z"
+            },
+            "facture": null
+        },
+        {
+            "produit_id": 36,
+            "total_vendu": "1",
+            "byUsers": [
+                {
+                    "facture_id": 46,
+                    "user_id": 37,
+                    "nom": "SERV M",
+                    "quantite": "1",
+                    "montant": 8000
+                }
+            ],
+            "produit": {
+                "id": 36,
+                "code_barre": "1747788439132",
+                "reference": "PROD-725437",
+                "categorie_id": 16,
+                "libelle": "FANTA",
+                "prix_unitaire": "8000.00",
+                "unite": "cannete",
+                "qte_init": 15,
+                "seuil_reappro": 10,
+                "quantified": 1,
+                "tva": 0,
+                "image": null,
+                "ets_id": 8,
+                "created_at": "2026-04-15T20:35:07.000000Z",
+                "updated_at": "2026-04-15T20:35:07.000000Z"
+            },
+            "facture": null
+        }
+    ]
+}
+
+
+GET    /api/caissier/counts.all      - Compteurs dashboard [HomeController@dashboardCounter]
+       Paramètres: ?ets_id=int
+       Succès: { "status": "success", "counts": {...} }
+{
+    "status": "success",
+    "counts": {
+        "facs": 3,
+        "pendings": 2,
+        "cancelled": 0,
+        "users": 1,
+        "sells": 2
+    }
+}
+
+
+POST   /api/caissier/payment.create       - Créer paiement [AdminController@createPayment]
+       Données: { "facture_id": int, "montant": float, "methode": "string", ... }
+       Succès: { "status": "success", "payment": {...} }
+
+POST   /api/caissier/reservation.pay      - Payer réservation [ReservationController@payerReservation]
+       Données: { "reservation_id": int, "montant": float, ... }
+       Succès: { "status": "success", "payment": {...} }
+
+================================================================================
+ENDPOINTS SERVEUR
+================================================================================
+
+
+GET    /api/serveur/serveurs.all          - Tous les serveurs [AdminController@getAllServeurs]
+       Paramètres: ?ets_id=int
+       Succès: { "status": "success", "serveurs": [...] }
+{
+    "status": "success",
+    "users": [
+        {
+            "id": 37,
+            "name": "SERV M",
+            "email": "servmomo@gmail.com",
+            "email_verified_at": null,
+            "actif": false,
+            "salaire": "0.00",
+            "role": "serveur",
+            "status": "actif",
+            "ets_id": 8,
+            "emplacement_id": 22,
+            "created_at": "2026-04-15T00:24:57.000000Z",
+            "updated_at": "2026-04-22T15:16:52.000000Z",
+            "last_log": {
+                "id": 65,
+                "user_id": 37,
+                "sale_day_id": 5,
+                "log_date": "26/04/2026",
+                "logged_in_at": "27/04/2026 09:53",
+                "logged_out_at": "27/04/2026 09:57",
+                "status": "online",
+                "ets_id": 8,
+                "emplacement_id": null,
+                "created_at": "27/04/2026 09:53",
+                "updated_at": "27/04/2026 09:57"
+            },
+            "emplacement": {
+                "id": 22,
+                "libelle": "EMPA",
+                "type": "restaurant & lounge",
+                "ets_id": 8,
+                "created_at": "2026-04-15T00:24:03.000000Z",
+                "updated_at": "2026-04-15T00:24:03.000000Z"
+            },
+            "permissions": [
+                {
+                    "id": 5,
+                    "name": "voir-factures",
+                    "guard_name": "web",
+                    "created_at": "2025-11-22T12:12:43.000000Z",
+                    "updated_at": "2025-11-22T12:12:43.000000Z",
+                    "pivot": {
+                        "model_id": 37,
+                        "permission_id": 5,
+                        "model_type": "App\\Models\\User"
+                    }
+                },
+                {
+                    "id": 6,
+                    "name": "creer-factures",
+                    "guard_name": "web",
+                    "created_at": "2025-11-22T12:12:43.000000Z",
+                    "updated_at": "2025-11-22T12:12:43.000000Z",
+                    "pivot": {
+                        "model_id": 37,
+                        "permission_id": 6,
+                        "model_type": "App\\Models\\User"
+                    }
+                },
+                {
+                    "id": 13,
+                    "name": "voir-produits",
+                    "guard_name": "web",
+                    "created_at": "2025-11-22T12:12:43.000000Z",
+                    "updated_at": "2025-11-22T12:12:43.000000Z",
+                    "pivot": {
+                        "model_id": 37,
+                        "permission_id": 13,
+                        "model_type": "App\\Models\\User"
+                    }
+                },
+                {
+                    "id": 17,
+                    "name": "voir-categories",
+                    "guard_name": "web",
+                    "created_at": "2025-11-22T12:12:43.000000Z",
+                    "updated_at": "2025-11-22T12:12:43.000000Z",
+                    "pivot": {
+                        "model_id": 37,
+                        "permission_id": 17,
+                        "model_type": "App\\Models\\User"
+                    }
+                },
+                {
+                    "id": 25,
+                    "name": "voir-tables",
+                    "guard_name": "web",
+                    "created_at": "2025-11-22T12:12:43.000000Z",
+                    "updated_at": "2025-11-22T12:12:43.000000Z",
+                    "pivot": {
+                        "model_id": 37,
+                        "permission_id": 25,
+                        "model_type": "App\\Models\\User"
+                    }
+                },
+                {
+                    "id": 33,
+                    "name": "voir-chambres",
+                    "guard_name": "web",
+                    "created_at": "2025-11-22T12:12:43.000000Z",
+                    "updated_at": "2025-11-22T12:12:43.000000Z",
+                    "pivot": {
+                        "model_id": 37,
+                        "permission_id": 33,
+                        "model_type": "App\\Models\\User"
+                    }
+                },
+                {
+                    "id": 45,
+                    "name": "voir-commandes",
+                    "guard_name": "web",
+                    "created_at": "2025-11-22T12:12:43.000000Z",
+                    "updated_at": "2025-11-22T12:12:43.000000Z",
+                    "pivot": {
+                        "model_id": 37,
+                        "permission_id": 45,
+                        "model_type": "App\\Models\\User"
+                    }
+                },
+                {
+                    "id": 46,
+                    "name": "creer-commandes",
+                    "guard_name": "web",
+                    "created_at": "2025-11-22T12:12:43.000000Z",
+                    "updated_at": "2025-11-22T12:12:43.000000Z",
+                    "pivot": {
+                        "model_id": 37,
+                        "permission_id": 46,
+                        "model_type": "App\\Models\\User"
+                    }
+                },
+                {
+                    "id": 59,
+                    "name": "passer-commandes",
+                    "guard_name": "web",
+                    "created_at": "2025-11-22T12:12:43.000000Z",
+                    "updated_at": "2025-11-22T12:12:43.000000Z",
+                    "pivot": {
+                        "model_id": 37,
+                        "permission_id": 59,
+                        "model_type": "App\\Models\\User"
+                    }
+                }
+            ],
+            "roles": [
+                {
+                    "id": 3,
+                    "name": "serveur",
+                    "guard_name": "web",
+                    "created_at": "2025-11-22T12:12:43.000000Z",
+                    "updated_at": "2025-11-22T12:12:43.000000Z",
+                    "pivot": {
+                        "model_id": 37,
+                        "role_id": 3,
+                        "model_type": "App\\Models\\User"
+                    },
+                    "permissions": [
+                        {
+                            "id": 5,
+                            "name": "voir-factures",
+                            "guard_name": "web",
+                            "created_at": "2025-11-22T12:12:43.000000Z",
+                            "updated_at": "2025-11-22T12:12:43.000000Z",
+                            "pivot": {
+                                "role_id": 3,
+                                "permission_id": 5
+                            }
+                        },
+                        {
+                            "id": 6,
+                            "name": "creer-factures",
+                            "guard_name": "web",
+                            "created_at": "2025-11-22T12:12:43.000000Z",
+                            "updated_at": "2025-11-22T12:12:43.000000Z",
+                            "pivot": {
+                                "role_id": 3,
+                                "permission_id": 6
+                            }
+                        },
+                        {
+                            "id": 13,
+                            "name": "voir-produits",
+                            "guard_name": "web",
+                            "created_at": "2025-11-22T12:12:43.000000Z",
+                            "updated_at": "2025-11-22T12:12:43.000000Z",
+                            "pivot": {
+                                "role_id": 3,
+                                "permission_id": 13
+                            }
+                        },
+                        {
+                            "id": 17,
+                            "name": "voir-categories",
+                            "guard_name": "web",
+                            "created_at": "2025-11-22T12:12:43.000000Z",
+                            "updated_at": "2025-11-22T12:12:43.000000Z",
+                            "pivot": {
+                                "role_id": 3,
+                                "permission_id": 17
+                            }
+                        },
+                        {
+                            "id": 25,
+                            "name": "voir-tables",
+                            "guard_name": "web",
+                            "created_at": "2025-11-22T12:12:43.000000Z",
+                            "updated_at": "2025-11-22T12:12:43.000000Z",
+                            "pivot": {
+                                "role_id": 3,
+                                "permission_id": 25
+                            }
+                        },
+                        {
+                            "id": 33,
+                            "name": "voir-chambres",
+                            "guard_name": "web",
+                            "created_at": "2025-11-22T12:12:43.000000Z",
+                            "updated_at": "2025-11-22T12:12:43.000000Z",
+                            "pivot": {
+                                "role_id": 3,
+                                "permission_id": 33
+                            }
+                        },
+                        {
+                            "id": 45,
+                            "name": "voir-commandes",
+                            "guard_name": "web",
+                            "created_at": "2025-11-22T12:12:43.000000Z",
+                            "updated_at": "2025-11-22T12:12:43.000000Z",
+                            "pivot": {
+                                "role_id": 3,
+                                "permission_id": 45
+                            }
+                        },
+                        {
+                            "id": 46,
+                            "name": "creer-commandes",
+                            "guard_name": "web",
+                            "created_at": "2025-11-22T12:12:43.000000Z",
+                            "updated_at": "2025-11-22T12:12:43.000000Z",
+                            "pivot": {
+                                "role_id": 3,
+                                "permission_id": 46
+                            }
+                        },
+                        {
+                            "id": 59,
+                            "name": "passer-commandes",
+                            "guard_name": "web",
+                            "created_at": "2025-11-22T12:12:43.000000Z",
+                            "updated_at": "2025-11-22T12:12:43.000000Z",
+                            "pivot": {
+                                "role_id": 3,
+                                "permission_id": 59
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
+
+
+GET    /api/serveur/serveurs.services     - Services serveurs [AdminController@getAllServeursServices]
+       Paramètres: ?ets_id=int
+       Succès: { "status": "success", "services": [...] }
+{
+    "status": "success",
+    "serveurs": [
+        {
+            "user_id": 37,
+            "total_encaisse": "18000.00",
+            "total_ticket": 1,
+            "rapport_statut": "none",
+            "rapport_id": null,
+            "user": {
+                "id": 37,
+                "name": "SERV M",
+                "email": "servmomo@gmail.com",
+                "email_verified_at": null,
+                "actif": false,
+                "salaire": "0.00",
+                "role": "serveur",
+                "status": "actif",
+                "ets_id": 8,
+                "emplacement_id": 22,
+                "created_at": "2026-04-15T00:24:57.000000Z",
+                "updated_at": "2026-04-22T15:16:52.000000Z",
+                "last_log": {
+                    "id": 65,
+                    "user_id": 37,
+                    "sale_day_id": 5,
+                    "log_date": "26/04/2026",
+                    "logged_in_at": "27/04/2026 09:53",
+                    "logged_out_at": "27/04/2026 09:57",
+                    "status": "online",
+                    "ets_id": 8,
+                    "emplacement_id": null,
+                    "created_at": "27/04/2026 09:53",
+                    "updated_at": "27/04/2026 09:57"
+                }
+            }
+        }
+    ]
+}
+
+POST   /api/serveur/table.liberer           - Libérer table [AdminController@libererTable]
+       Données: { "table_id": int }
+       Succès: { "status": "success", "message": "Table libérée" }
+{
+    "status": "success",
+    "result": "Table liberée avec succès !"
+}
+
+
+POST   /api/serveur/cmd.servir              - Servir commande [AdminController@servirCommande]
+       Données: { "commande_id": int, ... }
+       Succès: { "status": "success", "message": "Commande servie" }
+{
+    "status": "success",
+    "result": "commande servie avec succès !"
+}
+
+================================================================================
+ENDPOINTS ADMIN - GESTION JOURNÉES
+================================================================================
+
+POST   /api/admin/day.start               - Ouvrir journée [AdminController@startDay]
+       {
+    "ets_id": 8,
+    "user_id":38,
+    "currencie_value":2200
+}
+
+       Succès: { "status": "success", "day": {...} }
+{
+    "status": "success",
+    "result": {
+        "saleDay": {
+            "sale_date": "30/04/2026",
+            "start_time": "01/05/2026 10:47",
+            "ets_id": 8,
+            "end_time": null,
+            "updated_at": "01/05/2026 10:47",
+            "created_at": "01/05/2026 10:47",
+            "id": 8
+        },
+        "currencie": {
+            "id": 10,
+            "currencie_date": "30/04/2026",
+            "currencie_value": 2200,
+            "currencie_exchange": "USD",
+            "ets_id": 8,
+            "created_at": "01/05/2026 10:47",
+            "updated_at": "01/05/2026 10:47"
+        },
+        "access": {
+            "id": 8,
+            "allowed": true,
+            "ets_id": 8,
+            "created_at": "14/04/2026 23:38",
+            "updated_at": "01/05/2026 10:47"
+        }
+    }
+}
+
+
+POST   /api/admin/day.close.report        - Rapport fermeture journée [AdminController@closeDayReport]
+       Données: { "sale_day_id": int, ... }
+       Succès: { "status": "success", "report": {...} }
+{
+  "ets_id":8,
+  "user_id":38,
+  "sale_day_id":8,
+  "serveur_id":37,
+  "total_especes":0,
+  "tickets_serveur":0,
+  "tickets_emis":0,
+  "valeur_theorique":0
+}
+    "status": "success",
+    "message": "La journée du serveur clôturée avec succès.",
+    "result": {
+        "serveur_id": 37,
+        "total_especes": 0,
+        "tickets_serveur": 0,
+        "tickets_emis": 0,
+        "valeur_theorique": 0,
+        "caissier_id": 38,
+        "sale_day_id": 7,
+        "taux": 2200,
+        "rapport_date": "2026-05-01",
+        "updated_at": "2026-05-01T10:57:57.000000Z",
+        "created_at": "2026-05-01T10:57:57.000000Z",
+        "id": 6
+    }
+}
+
+
+
+POST   /api/admin/day.close               - Fermer journée [AdminController@closeDay]
+       Données: { "sale_day_id": int, ... }
+       Succès: { "status": "success", "message": "Journée fermée" }
+{
+  "ets_id":8,
+  "user_id":38,
+  "sale_day_id":8
+}
+{
+    "status": "success",
+    "message": "La journée a été clôturée avec succès.",
+    "saleDay": {
+        "id": 8,
+        "sale_date": "30/04/2026",
+        "start_time": "01/05/2026 10:47",
+        "end_time": "01/05/2026 10:53",
+        "ets_id": 8,
+        "created_at": "01/05/2026 10:47",
+        "updated_at": "01/05/2026 10:53"
+    },
+    "report_url": "caisse.day.report/8"
+}
+
+
+GET    /api/admin/caisse.day.report/{sale_day_id} - PDF rapport caisse [AdminController@generatePDF]
+       Succès: PDF file
+
+
